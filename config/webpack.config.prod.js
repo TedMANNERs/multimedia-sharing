@@ -107,7 +107,6 @@ module.exports = {
   },
   module: {
     strictExportPresence: true,
-    strictExportPresence: true,
     unknownContextRegExp: /^.\/.*$/,
     rules: [
       // TODO: Disable require.ensure as it's not a standard language feature.
@@ -239,7 +238,7 @@ module.exports = {
   plugins: [
     new webpack.DllReferencePlugin({
       context : paths.cesiumSourceFolder,
-        manifest: require(path.join(paths.app, "distdll/cesiumDLL-manifest.json")),
+        manifest: require(path.join(paths.app, "distdll/cesiumDll-manifest.json")),
     }),
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
