@@ -14,6 +14,7 @@ process.on('unhandledRejection', err => {
 // Ensure environment variables are read.
 require('../config/env');
 
+const glob = require("glob")
 const path = require('path');
 const chalk = require('chalk');
 const fs = require('fs-extra');
@@ -49,6 +50,7 @@ measureFileSizesBeforeBuild(paths.appBuild)
     fs.emptyDirSync(paths.appBuild);
     // Merge with the public folder
     copyPublicFolder();
+    copyCesium();
     // Start the webpack build
     return build(previousFileSizes);
   })
@@ -147,4 +149,34 @@ function copyPublicFolder() {
     dereference: true,
     filter: file => file !== paths.appHtml,
   });
+}
+
+function copyCesium() {
+  const outputPath = path.join(paths.appBuild, "cesium");
+  const inputPath = path.cesiumProdBuild + "/**/*.js";
+
+  let globOptions = {
+      nodir : true,
+      cwd : "node_modules/cesium/Build/Cesium/",
+      ignore: ["*Cesium.js", "**/NaturalEarthII/**/*", "**/maki/**/*"]
+  };
+
+  glob("**/*", globOptions, function (er, files) {
+      // files is an array of filenames.
+      // If the `nonull` option is set, and nothing
+      // was found, then files is ["**/*.js"]
+      // er is an error object or null.
+
+      files.forEach(function (srcPath) {
+          let fullSrcPath = path.join("node_modules/cesium/Build/Cesium/", srcPath);
+          let fullDestPath = path.join(outputPath, srcPath);
+          fs.copySync(fullSrcPath, fullDestPath);
+      });
+  });
+
+  const cesiumDllPath = path.join(paths.app, "distdll/cesiumDll.js");
+  const cesiumOutputPath = path.join(outputPath, "cesiumDll.js");
+  fs.copySync(cesiumDllPath, cesiumOutputPath);
+
+  console.log("Cesium copied to output folder");
 }

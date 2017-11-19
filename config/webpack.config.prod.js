@@ -237,6 +237,10 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.DllReferencePlugin({
+      context : paths.cesiumSourceFolder,
+        manifest: require(path.join(paths.app, "distdll/cesiumDLL-manifest.json")),
+    }),
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
@@ -247,6 +251,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
+      production : true,
       minify: {
         removeComments: true,
         collapseWhitespace: true,
