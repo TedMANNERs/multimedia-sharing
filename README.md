@@ -1,9 +1,11 @@
 # multimedia-sharing
-Prototype for HSLU Module PTA
+Prototype for HSLU Module PTA using Cesium.js
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+How to use
+1. Open command line 
+2. Run "node server.js"
+3. Open another command line
+4. Run "gulp watch"
 
-Below you will find some information on how to perform common tasks.<br>
-You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
-
-React + Cesium: http://blog.isquaredsoftware.com/2017/03/declarative-earth-part-1-cesium-webpack/
+#Heroku Deployment
+https://multimedia-sharing.herokuapp.com/
