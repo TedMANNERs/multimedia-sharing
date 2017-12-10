@@ -33,92 +33,46 @@
         requestWaterMask: true
     });
     viewer.terrainProvider = terrainProvider;
+
+    var scaleByDistance = new Cesium.NearFarScalar(1.5e2, 0.05, 8.0e6, 0.1);
+    var pixelOffsetScaleByDistance  = new Cesium.NearFarScalar(1.5e2, 1.1, 8.0e6, 1.3);
+    var pixelOffset  = new Cesium.Cartesian2(0, -30);
+
+    // Locations
     var luzern = viewer.entities.add({
         name: 'Luzern',
         position: Cesium.Cartesian3.fromDegrees(8.308883, 47.0526980),
         billboard: {
             image: "./Images/luzern.jpg",
-            width: 50,
-            height: 50,
-            verticalOrigin: Cesium.VerticalOrigin.TOP
+            scaleByDistance : scaleByDistance,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
         },
         label : {
             text: 'Luzern',
             font: '14pt monospace',
             style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-            outlineWidth : 2,
-            verticalOrigin : Cesium.VerticalOrigin.TOP,
-            pixelOffset : new Cesium.Cartesian2(0, -30)
+            outlineWidth: 2,
+            pixelOffsetScaleByDistance: pixelOffsetScaleByDistance,
+            heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+            pixelOffset: pixelOffset
         }
     });
 
     var phewaPosition = Cesium.Cartesian3.fromDegrees(83.941095, 28.212111, 800);
-    var phewa = viewer.entities.add({
-        name: 'Phewa Lake',
-        position: phewaPosition,
-        billboard: {
-            image: "./Images/phewa_nepal.jpg",
-            width: 50,
-            height: 50,
-            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
-        },
-        label : {
-            text: 'Phewa Lake',
-            font: '14pt monospace',
-            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND,
-            outlineWidth : 2,
-            pixelOffset : new Cesium.Cartesian2(0, -30)
-        }
-    });
-    
     var sinuwaPosition = Cesium.Cartesian3.fromDegrees(83.829665, 28.428139, 2000);
     var sinuwaLinePositions = [phewaPosition, sinuwaPosition];
-    var sinuwa = viewer.entities.add({
-        name: 'Sinuwa',
-        position: sinuwaPosition,
-        billboard: {
-            image: "./Images/sinuwa.jpg",
-            width: 50,
-            height: 50,
-            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
-        },
-        label : {
-            text: 'Sinuwa',
-            font: '14pt monospace',
-            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-            outlineWidth : 2,
-            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND,
-            pixelOffset : new Cesium.Cartesian2(0, -30)
-        }
-    });
+    var hiunchuliPosition = Cesium.Cartesian3.fromDegrees(83.848101, 28.510408, 6200);
+    var hiunchuliLinePositions = [sinuwaPosition, hiunchuliPosition];
+    var phoksundoPosition = Cesium.Cartesian3.fromDegrees(82.944160, 29.203980, 3750);
+    var phoksundoLinePositions = [hiunchuliPosition, phoksundoPosition];
+    var malikabotaPosition = Cesium.Cartesian3.fromDegrees(82.100171, 29.431746, 3050);
+    var malikabotaLinePositions = [phoksundoPosition, malikabotaPosition];
 
     viewer.entities.add({
         polyline : {
             positions : sinuwaLinePositions,
             width : 2,
             material : Cesium.Color.RED
-        }
-    });
-
-    var hiunchuliPosition = Cesium.Cartesian3.fromDegrees(83.848101, 28.510408, 6200);
-    var hiunchuliLinePositions = [sinuwaPosition, hiunchuliPosition];
-    var hiunchuli = viewer.entities.add({
-        name: 'Hiunchuli',
-        position: hiunchuliPosition,
-        billboard: {
-            image: "./Images/hiunchuli.jpg",
-            width: 50,
-            height: 50,
-            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
-        },
-        label : {
-            text: 'Hiunchuli',
-            font: '14pt monospace',
-            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-            outlineWidth : 2,
-            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND,
-            pixelOffset : new Cesium.Cartesian2(0, -30)
         }
     });
 
@@ -130,53 +84,11 @@
         }
     });
 
-    var phoksundoPosition = Cesium.Cartesian3.fromDegrees(82.944160, 29.203980, 3750);
-    var phoksundoLinePositions = [hiunchuliPosition, phoksundoPosition];
-    var phoksundo = viewer.entities.add({
-        name: 'Phoksundo',
-        position: phoksundoPosition,
-        billboard: {
-            image: "./Images/phoksundo.jpg",
-            width: 50,
-            height: 50,
-            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
-        },
-        label : {
-            text: 'Phoksundo',
-            font: '14pt monospace',
-            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-            outlineWidth : 2,
-            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND,
-            pixelOffset : new Cesium.Cartesian2(0, -30)
-        }
-    });
-
     viewer.entities.add({
         polyline : {
             positions : phoksundoLinePositions,
             width : 2,
             material : Cesium.Color.RED
-        }
-    });
-
-    var malikabotaPosition = Cesium.Cartesian3.fromDegrees(82.100171, 29.431746, 3050);
-    var malikabotaLinePositions = [phoksundoPosition, malikabotaPosition];
-    var malikabota = viewer.entities.add({
-        name: 'Malikabota',
-        position: malikabotaPosition,
-        billboard: {
-            image: "./Images/malikabota.jpg",
-            width: 50,
-            height: 50,
-            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
-        },
-        label : {
-            text: 'Malikabota',
-            font: '14pt monospace',
-            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-            outlineWidth : 2,
-            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND,
-            pixelOffset : new Cesium.Cartesian2(0, -30)
         }
     });
 
@@ -187,8 +99,140 @@
             material : Cesium.Color.RED
         }
     });
+
+    var phewa = viewer.entities.add({
+        name: 'Phewa Lake',
+        position: phewaPosition,
+        billboard: {
+            image: "./Images/phewa_nepal.jpg",
+            scaleByDistance : scaleByDistance,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
+        },
+        label : {
+            text: 'Phewa Lake',
+            font: '14pt monospace',
+            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND,
+            outlineWidth : 2,
+            pixelOffsetScaleByDistance: pixelOffsetScaleByDistance,
+            pixelOffset : pixelOffset
+        }
+    });
     
-    viewer.zoomTo(malikabota);
+    var sinuwa = viewer.entities.add({
+        name: 'Sinuwa',
+        position: sinuwaPosition,
+        billboard: {
+            image: "./Images/sinuwa.jpg",
+            scaleByDistance : scaleByDistance,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
+        },
+        label : {
+            text: 'Sinuwa',
+            font: '14pt monospace',
+            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+            outlineWidth : 2,
+            pixelOffsetScaleByDistance: pixelOffsetScaleByDistance,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND,
+            pixelOffset : pixelOffset
+        }
+    });
+
+    var hiunchuli = viewer.entities.add({
+        name: 'Hiunchuli',
+        position: hiunchuliPosition,
+        billboard: {
+            image: "./Images/hiunchuli.jpg",
+            scaleByDistance : scaleByDistance,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
+        },
+        label : {
+            text: 'Hiunchuli',
+            font: '14pt monospace',
+            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+            outlineWidth : 2,
+            pixelOffsetScaleByDistance: pixelOffsetScaleByDistance,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND,
+            pixelOffset : pixelOffset
+        }
+    });
+
+    var phoksundo = viewer.entities.add({
+        name: 'Phoksundo',
+        position: phoksundoPosition,
+        billboard: {
+            image: "./Images/phoksundo.jpg",
+            scaleByDistance : scaleByDistance,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
+        },
+        label : {
+            text: 'Phoksundo',
+            font: '14pt monospace',
+            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+            outlineWidth : 2,
+            pixelOffsetScaleByDistance: pixelOffsetScaleByDistance,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND,
+            pixelOffset : pixelOffset
+        }
+    });
+
+    var malikabota = viewer.entities.add({
+        name: 'Malikabota',
+        position: malikabotaPosition,
+        billboard: {
+            image: "./Images/malikabota.jpg",
+            scaleByDistance : scaleByDistance,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
+        },
+        label : {
+            text: 'Malikabota',
+            font: '14pt monospace',
+            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+            outlineWidth : 2,
+            pixelOffsetScaleByDistance: pixelOffsetScaleByDistance,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND,
+            pixelOffset : pixelOffset
+        }
+    });
+
+    // Clickhandler
+    var clickHandler = viewer.screenSpaceEventHandler.getInputAction(Cesium.ScreenSpaceEventType.LEFT_CLICK);
+    var selectedEntity;
+    viewer.screenSpaceEventHandler.setInputAction(function onLeftClick(movement) {
+        var pickedObject = viewer.scene.pick(movement.position);
+        if(Cesium.defined(pickedObject)) {
+            if(pickedObject.id === selectedEntity) {
+                selectedEntity.billboard.eyeOffset = new Cesium.Cartesian3(0, 0, 0);
+                selectedEntity.billboard.scaleByDistance = scaleByDistance,
+                selectedEntity.label.font = '14pt monospace',
+                selectedEntity.label.pixelOffset = pixelOffset;
+                selectedEntity.label.pixelOffsetScaleByDistance = pixelOffsetScaleByDistance;
+                selectedEntity = null;
+                return;
+            }
+            
+            for (var i = 0; i < viewer.entities.values.length; i++) {
+                const e = viewer.entities.values[i];
+                if (e === pickedObject.id) {
+                    selectedEntity = e;
+                    break;
+                }
+            }
+            selectedEntity.billboard.eyeOffset = new Cesium.Cartesian3(0, 0, -5000);
+            selectedEntity.billboard.scaleByDistance = undefined,
+            selectedEntity.label.font = '26pt monospace';
+            selectedEntity.label.pixelOffset = new Cesium.Cartesian2(0, -290);
+            selectedEntity.label.pixelOffsetScaleByDistance = undefined;
+            selectedEntity.label.eyeOffset = new Cesium.Cartesian3(0, 0, -5005);
+        }
+    }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+    var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+    handler.setInputAction(function(movement) {
+        viewer.trackedEntity = undefined;
+    }, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+    
+    viewer.zoomTo(viewer.entities);
   </script>
 </body>
 </html>
