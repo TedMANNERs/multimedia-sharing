@@ -19,6 +19,13 @@
 <body>
   <div id="cesiumContainer"></div>
   <script>
+    var apiKeyRequest = new XMLHttpRequest();
+    apiKeyRequest.open("GET", "/apikey", false); // false for synchronous request
+    apiKeyRequest.send();
+    var apikey = apiKeyRequest.responseText;
+
+    Cesium.BingMapsApi.defaultKey = apikey;
+
     var viewer = new Cesium.Viewer('cesiumContainer');
     var terrainProvider = new Cesium.CesiumTerrainProvider({
         url : '//assets.agi.com/stk-terrain/world',
