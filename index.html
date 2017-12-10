@@ -51,8 +51,144 @@
             pixelOffset : new Cesium.Cartesian2(0, -30)
         }
     });
+
+    var phewaPosition = Cesium.Cartesian3.fromDegrees(83.941095, 28.212111, 800);
+    var phewa = viewer.entities.add({
+        name: 'Phewa Lake',
+        position: phewaPosition,
+        billboard: {
+            image: "./Images/phewa_nepal.jpg",
+            width: 50,
+            height: 50,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
+        },
+        label : {
+            text: 'Phewa Lake',
+            font: '14pt monospace',
+            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND,
+            outlineWidth : 2,
+            pixelOffset : new Cesium.Cartesian2(0, -30)
+        }
+    });
     
-    viewer.zoomTo(viewer.entities);
+    var sinuwaPosition = Cesium.Cartesian3.fromDegrees(83.829665, 28.428139, 2000);
+    var sinuwaLinePositions = [phewaPosition, sinuwaPosition];
+    var sinuwa = viewer.entities.add({
+        name: 'Sinuwa',
+        position: sinuwaPosition,
+        billboard: {
+            image: "./Images/sinuwa.jpg",
+            width: 50,
+            height: 50,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
+        },
+        label : {
+            text: 'Sinuwa',
+            font: '14pt monospace',
+            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+            outlineWidth : 2,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND,
+            pixelOffset : new Cesium.Cartesian2(0, -30)
+        }
+    });
+
+    viewer.entities.add({
+        polyline : {
+            positions : sinuwaLinePositions,
+            width : 2,
+            material : Cesium.Color.RED
+        }
+    });
+
+    var hiunchuliPosition = Cesium.Cartesian3.fromDegrees(83.848101, 28.510408, 6200);
+    var hiunchuliLinePositions = [sinuwaPosition, hiunchuliPosition];
+    var hiunchuli = viewer.entities.add({
+        name: 'Hiunchuli',
+        position: hiunchuliPosition,
+        billboard: {
+            image: "./Images/hiunchuli.jpg",
+            width: 50,
+            height: 50,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
+        },
+        label : {
+            text: 'Hiunchuli',
+            font: '14pt monospace',
+            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+            outlineWidth : 2,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND,
+            pixelOffset : new Cesium.Cartesian2(0, -30)
+        }
+    });
+
+    viewer.entities.add({
+        polyline : {
+            positions : hiunchuliLinePositions,
+            width : 2,
+            material : Cesium.Color.RED
+        }
+    });
+
+    var phoksundoPosition = Cesium.Cartesian3.fromDegrees(82.944160, 29.203980, 3750);
+    var phoksundoLinePositions = [hiunchuliPosition, phoksundoPosition];
+    var phoksundo = viewer.entities.add({
+        name: 'Phoksundo',
+        position: phoksundoPosition,
+        billboard: {
+            image: "./Images/phoksundo.jpg",
+            width: 50,
+            height: 50,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
+        },
+        label : {
+            text: 'Phoksundo',
+            font: '14pt monospace',
+            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+            outlineWidth : 2,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND,
+            pixelOffset : new Cesium.Cartesian2(0, -30)
+        }
+    });
+
+    viewer.entities.add({
+        polyline : {
+            positions : phoksundoLinePositions,
+            width : 2,
+            material : Cesium.Color.RED
+        }
+    });
+
+    var malikabotaPosition = Cesium.Cartesian3.fromDegrees(82.100171, 29.431746, 3050);
+    var malikabotaLinePositions = [phoksundoPosition, malikabotaPosition];
+    var malikabota = viewer.entities.add({
+        name: 'Malikabota',
+        position: malikabotaPosition,
+        billboard: {
+            image: "./Images/malikabota.jpg",
+            width: 50,
+            height: 50,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
+        },
+        label : {
+            text: 'Malikabota',
+            font: '14pt monospace',
+            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+            outlineWidth : 2,
+            heightReference : Cesium.HeightReference.CLAMP_TO_GROUND,
+            pixelOffset : new Cesium.Cartesian2(0, -30)
+        }
+    });
+
+    viewer.entities.add({
+        polyline : {
+            positions : malikabotaLinePositions,
+            width : 2,
+            material : Cesium.Color.RED
+        }
+    });
+    
+    viewer.zoomTo(malikabota);
   </script>
 </body>
 </html>
