@@ -7,16 +7,51 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-  <title>Hello World!</title>
+  <title>Multimedia-Sharing</title>
   <script src="../Build/Cesium/Cesium.js"></script>
   <style>
       @import url(../Build/Cesium/Widgets/widgets.css);
       html, body, #cesiumContainer {
           width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
       }
+
+      #cesiumContainer, #entityDescription {
+          position: absolute;
+      }
+
+      #entityDescription {
+          z-index: 10;
+          background-color: white;
+          border: 5px solid gray;
+          border-top: 0;
+          border-left: 0;
+          border-radius: 0 0 10px 0;
+          font-family: sans-serif;
+          padding: 10px;
+      }
+
+      .imageDescription {
+          text-align: left;
+      }
+
+      .image {
+          max-width: 200px;
+      }
+
+      button {
+          background-color: #3aa6ff;
+          color: white;
+          font-weight: bold;
+          padding: 15px;
+          border: none;
+          border-radius: 3px;
+          width: 150px;
+          margin-left: 30%;
+      }
   </style>
 </head>
 <body>
+  <div id="entityDescription"></div>
   <div id="cesiumContainer"></div>
   <script>
     var apiKeyRequest = new XMLHttpRequest();
@@ -37,10 +72,16 @@
     var scaleByDistance = new Cesium.NearFarScalar(1.5e2, 0.05, 8.0e6, 0.1);
     var pixelOffsetScaleByDistance  = new Cesium.NearFarScalar(1.5e2, 1.1, 8.0e6, 1.3);
     var pixelOffset  = new Cesium.Cartesian2(0, -30);
+    var LUZERN = "Luzern";
+    var PHEWA = "Phewa Lake";
+    var SINUWA = "Sinuwa";
+    var HIUNCHULI = "Hiunchuli";
+    var PHOKSUNDO = "Phoksundo";
+    var MALIKABOTA = "Malikabota";
 
     // Locations
     var luzern = viewer.entities.add({
-        name: 'Luzern',
+        name: LUZERN,
         position: Cesium.Cartesian3.fromDegrees(8.308883, 47.0526980),
         billboard: {
             image: "./Images/luzern.jpg",
@@ -48,7 +89,7 @@
             heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
         },
         label : {
-            text: 'Luzern',
+            text: LUZERN,
             font: '14pt monospace',
             style: Cesium.LabelStyle.FILL_AND_OUTLINE,
             outlineWidth: 2,
@@ -101,7 +142,7 @@
     });
 
     var phewa = viewer.entities.add({
-        name: 'Phewa Lake',
+        name: PHEWA,
         position: phewaPosition,
         billboard: {
             image: "./Images/phewa_nepal.jpg",
@@ -109,7 +150,7 @@
             heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
         },
         label : {
-            text: 'Phewa Lake',
+            text: PHEWA,
             font: '14pt monospace',
             style: Cesium.LabelStyle.FILL_AND_OUTLINE,
             heightReference : Cesium.HeightReference.CLAMP_TO_GROUND,
@@ -120,7 +161,7 @@
     });
     
     var sinuwa = viewer.entities.add({
-        name: 'Sinuwa',
+        name: SINUWA,
         position: sinuwaPosition,
         billboard: {
             image: "./Images/sinuwa.jpg",
@@ -128,7 +169,7 @@
             heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
         },
         label : {
-            text: 'Sinuwa',
+            text: SINUWA,
             font: '14pt monospace',
             style: Cesium.LabelStyle.FILL_AND_OUTLINE,
             outlineWidth : 2,
@@ -139,7 +180,7 @@
     });
 
     var hiunchuli = viewer.entities.add({
-        name: 'Hiunchuli',
+        name: HIUNCHULI,
         position: hiunchuliPosition,
         billboard: {
             image: "./Images/hiunchuli.jpg",
@@ -147,7 +188,7 @@
             heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
         },
         label : {
-            text: 'Hiunchuli',
+            text: HIUNCHULI,
             font: '14pt monospace',
             style: Cesium.LabelStyle.FILL_AND_OUTLINE,
             outlineWidth : 2,
@@ -158,7 +199,7 @@
     });
 
     var phoksundo = viewer.entities.add({
-        name: 'Phoksundo',
+        name: PHOKSUNDO,
         position: phoksundoPosition,
         billboard: {
             image: "./Images/phoksundo.jpg",
@@ -166,7 +207,7 @@
             heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
         },
         label : {
-            text: 'Phoksundo',
+            text: PHOKSUNDO,
             font: '14pt monospace',
             style: Cesium.LabelStyle.FILL_AND_OUTLINE,
             outlineWidth : 2,
@@ -177,7 +218,7 @@
     });
 
     var malikabota = viewer.entities.add({
-        name: 'Malikabota',
+        name: MALIKABOTA,
         position: malikabotaPosition,
         billboard: {
             image: "./Images/malikabota.jpg",
@@ -185,7 +226,7 @@
             heightReference : Cesium.HeightReference.CLAMP_TO_GROUND
         },
         label : {
-            text: 'Malikabota',
+            text: MALIKABOTA,
             font: '14pt monospace',
             style: Cesium.LabelStyle.FILL_AND_OUTLINE,
             outlineWidth : 2,
@@ -202,12 +243,12 @@
         var pickedObject = viewer.scene.pick(movement.position);
         if(Cesium.defined(pickedObject)) {
             if(pickedObject.id === selectedEntity) {
-                selectedEntity.billboard.eyeOffset = new Cesium.Cartesian3(0, 0, 0);
                 selectedEntity.billboard.scaleByDistance = scaleByDistance,
                 selectedEntity.label.font = '14pt monospace',
                 selectedEntity.label.pixelOffset = pixelOffset;
                 selectedEntity.label.pixelOffsetScaleByDistance = pixelOffsetScaleByDistance;
                 selectedEntity = null;
+                hideDescription();
                 return;
             }
             
@@ -218,14 +259,96 @@
                     break;
                 }
             }
-            selectedEntity.billboard.eyeOffset = new Cesium.Cartesian3(0, 0, -5000);
             selectedEntity.billboard.scaleByDistance = undefined,
             selectedEntity.label.font = '26pt monospace';
             selectedEntity.label.pixelOffset = new Cesium.Cartesian2(0, -290);
             selectedEntity.label.pixelOffsetScaleByDistance = undefined;
-            selectedEntity.label.eyeOffset = new Cesium.Cartesian3(0, 0, -5005);
+            selectedEntity.label.eyeOffset = new Cesium.Cartesian3(0, 0, -1);
+            showDescription(selectedEntity.name);
         }
     }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+    function showDescription(name) {
+        
+        var location;
+        var date;
+        var equipment = "-";
+        var equipment2 = "-";
+        var equipmentImageSource;
+        var equipment2ImageSource;
+        switch(name) {
+            case LUZERN:
+                location = LUZERN;
+                date = "20.5.2016 11:51";
+                equipment = "Canon EOS 750D";
+                equipment2 = "Canon EF 24-70mm f/4.0L IS USM";
+                equipmentImageSource = "./Images/canon-camera.jpg";
+                equipment2ImageSource = "./Images/canon-lens.jpg";
+                break;
+            case PHEWA:
+                location = PHEWA;
+                date = "11.6.2015 13:23";
+                equipment = "Nikon D600";
+                equipmentImageSource = "./Images/nikon-camera.jpg";
+                break;
+            case SINUWA:
+                location = SINUWA;
+                date = "12.6.2015 15:09";
+                equipment = "Nikon D600";
+                equipmentImageSource = "./Images/nikon-camera.jpg";
+                break;
+            case HIUNCHULI:
+                location = HIUNCHULI;
+                date = "13.6.2015 12:17";
+                equipment = "Nikon D600";
+                equipment2 = "Nikon AF-S Micro 105mm, f/2.8 G VR IF-ED";
+                equipmentImageSource = "./Images/nikon-camera.jpg";
+                equipment2ImageSource = "./Images/nikon-lens.png";
+                break;
+            case PHOKSUNDO:
+                location = PHOKSUNDO;
+                date = "16.6.2015 14:58";
+                equipment = "Dji Spark Alpine White";
+                equipmentImageSource = "./Images/drone.jpg";
+                break;
+            case MALIKABOTA:
+                location = MALIKABOTA;
+                date = "18.6.2015 13:44";
+                equipment = "Nikon D500";
+                equipmentImageSource = "./Images/nikon-camera-d500.png";
+                break;
+        }
+
+        var entityDescription = document.getElementById("entityDescription")
+        var imageDescriptionDiv = document.createElement("div");
+        imageDescriptionDiv.className = "imageDescription";
+        imageDescriptionDiv.innerHTML = '<table><tbody>' +
+                                 '<tr><th>Ort</th><td>' + location + '</td></tr>' +
+                                 '<tr><th>Datum der Aufnahme</th><td>' + date + '</td></tr>' +
+                                 '<tr><th>Ausrüstung</th><td>' + equipment + '</td></tr>' +
+                                 '<tr><th>Zubehör</th><td>' + equipment2 + '</td></tr>' +
+                                 '</tbody></table>';
+        entityDescription.appendChild(imageDescriptionDiv);
+        
+        var imageDiv = document.createElement("div");
+        imageDiv.className = "imageContainer";
+        imageDiv.innerHTML = '<img class="image" src="' + equipmentImageSource + '" />';
+        if(equipment2ImageSource != null) {
+            imageDiv.innerHTML += '<img class="image" src="' + equipment2ImageSource + '" />'
+        }
+        entityDescription.appendChild(imageDiv);
+        var button = document.createElement("button");
+        button.type = "button";
+        button.innerText = "Jetzt mieten!";
+        entityDescription.appendChild(button);
+    }
+
+    function hideDescription() {
+        var div = document.getElementById('entityDescription');
+        while(div.hasChildNodes()) {
+            div.removeChild(div.lastChild);
+        }
+    }
 
     var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
     handler.setInputAction(function(movement) {
