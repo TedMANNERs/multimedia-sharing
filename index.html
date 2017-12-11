@@ -337,9 +337,11 @@
             imageDiv.innerHTML += '<img class="image" src="' + equipment2ImageSource + '" />'
         }
         entityDescription.appendChild(imageDiv);
+        
         var button = document.createElement("button");
         button.type = "button";
         button.innerText = "Jetzt mieten!";
+        button.addEventListener("click", hideDescription);
         entityDescription.appendChild(button);
     }
 
